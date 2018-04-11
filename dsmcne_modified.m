@@ -2,6 +2,9 @@
 clear all;
 help dsmcne;    % clear memory and print header
 
+% Change directory to work directory
+cd /unix/pdpwa/jchappell/DSMC/MATLAB/test
+
 % Initialise constants (particle mass, diameter, etc.)
 boltz = 1.3806e-23;         % Boltzmann's constant (J/K)
 mass = 1.44e-25;            % Mass of Rb atom (kg)
