@@ -18,12 +18,12 @@ diam = 6.06e-10;            % Effective diameter of Rb atom (m) from http://en.w
 T1 = 30000;                 % Initial temperature of excited plasma (K)
 T2 = 500;                   % Initial temperature of unperturbed plasma (K)
 density = 7.0e14/(0.01)^3;  % Number density of Rb (m^-3)
-L = 0.04;                    % System size (m)
+L = 2;                    % System size (m)
 h = 0.04;                   % System height (m)
 
 Volume = h*L*L;             % Volume of the system (m^3)
 %npart = input('Enter number of simulation particles: ');
-npart = 1e3;
+npart = 1e6;
 eff_num = density * Volume / npart;
 fprintf('Each simulation particle represents %g atoms\n', eff_num);
 mfp = 1/(sqrt(2) * pi * diam^2 * density);      % mean free path
@@ -57,7 +57,7 @@ v_unp = sqrt(boltz * T2 / mass) * randn(npart/2,3);
 v = cat(1, v_exc, v_unp);       % create array with velocities matched to intial x-position
 
 % Initialise variables used for evaluating collisions
-dl = 0.02;                  % cells are rectangular: dl in x and y
+dl = 0.5e-3;                  % cells are rectangular: dl in x and y
 ncell = (L/dl) * (h/dl);    % number of cells
 tau = 0.2 * dl / mpv_exc;   % set timestep tau using higher velocity region
 fprintf('Number of cells = (%.1f)x(%.1f) = %.1f\n', L/dl, h/dl, ncell);
@@ -80,21 +80,23 @@ sortData = struct('ncell', ncell, ...
 colSum = 0;
 strikeSum = [0 0];
 %t_max = input('Enter total period to simulate (ms): ');
-t_max = 0.1;
+t_max = 10;
 nstep = round(t_max * 1e-3 / tau);
 fprintf('Number of steps = %.1f\n', nstep);
 
-dl_bin = 5e-3;
-xbins = dl_bin/2:dl_bin:L;
-ybins = dl_bin/2:dl_bin:h;
+dl_bin_x = 5e-3;
+dl_bin_y = 1e-3;
+xbins = dl_bin_x/2:dl_bin_x:L;
+ybins = dl_bin_y/2:dl_bin_y:h;
 
 string = 'Initial distribution';
 
 fig = figure;
+set(fig, 'Position', [10 10 2000 200])
 values = hist3([y x], {ybins xbins});
 imagesc(xbins, ybins, values)
 colorbar
-axis equal
+%axis equal
 caxis_v = caxis;
 title(string);
 xlabel('x (m)');
@@ -129,7 +131,7 @@ for istep = 1:nstep
     colSum = colSum + col;
     
     % periodically display progress
-    if( rem(istep, 10) < 1)
+    if( rem(istep, 100) < 1)
         elapsed_time = toc;
         
         fprintf('Finished %g of %g steps, Collisions = %g\n', ...
