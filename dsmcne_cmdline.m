@@ -123,7 +123,7 @@ for istep = 1:nstep
     colSum = colSum + col;
     
     % periodically display progress
-    if( rem(istep, 1000) < 1)
+    if( rem(istep, 10) < 1)
         elapsed_time = toc;
         
         fprintf('Finished %g of %g steps, Collisions = %g\n', ...
