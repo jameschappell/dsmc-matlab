@@ -160,8 +160,8 @@ for istep = 1:nstep
     end
 end
 
-fprintf('Press Enter to exit\n');
-pause;
+%fprintf('Press Enter to exit\n');
+%pause;
 
         
      
