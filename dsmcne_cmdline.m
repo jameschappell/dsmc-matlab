@@ -92,7 +92,7 @@ ybins = dl_bin_y/2:dl_bin_y:h;
 string = 'Initial distribution';
 
 fig = figure;
-set(fig, 'Position', [10 10 2000 200])
+set(fig, 'Position', [10 10 2000 200]);
 values = hist3([y x], {ybins xbins});
 imagesc(xbins, ybins, values)
 colorbar
@@ -131,7 +131,7 @@ for istep = 1:nstep
     colSum = colSum + col;
     
     % periodically display progress
-    if( rem(istep, 100) < 1)
+    if( rem(istep, 1000) < 1)
         elapsed_time = toc;
         
         fprintf('Finished %g of %g steps, Collisions = %g\n', ...
@@ -143,6 +143,7 @@ for istep = 1:nstep
             
         close(fig);
         fig = figure();
+        set(fig, 'Position', [10 10 2000 200]);
         values = hist3([y x], {ybins, xbins});
         imagesc(xbins, ybins, values)
         colorbar
