@@ -1,4 +1,10 @@
-% dscmne - program to simulate a dilute gas using DSMC algorithm
+% dscmne - program to simulate a dilute gas using DSMC algorithm.
+% Developed by James Chappell - modified from scripts accessible at
+% www.algarcia.org/nummeth/Programs2E.html
+%
+% To run from command line, use:
+% matlab -nodesktop -nosplash -noFigureWindows -r "try; run('$PATH_TO_FILE/
+% dsmcne_cmdline.m'); catch; end; quit"
 clear all;
 help dsmcne;    % clear memory and print header
 
