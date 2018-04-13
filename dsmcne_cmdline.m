@@ -9,7 +9,7 @@ clear all;
 help dsmcne;    % clear memory and print header
 
 % Change directory to work directory
-cd /unix/pdpwa/jchappell/DSMC/MATLAB/run
+cd /unix/pdpwa/jchappell/DSMC/MATLAB/temp_gradient
 
 % Initialise constants (particle mass, diameter, etc.)
 boltz = 1.3806e-23;         % Boltzmann's constant (J/K)
@@ -151,6 +151,8 @@ for istep = 1:nstep
         caxis(caxis_v)
         title(string);
         xlabel('x (m)');
+        xlim([0 L])
+        ylim([0 h])
         ylabel('y (m)');
         png = sprintf('results/%06dmks.png', round(istep * tau * 1e6));
         saveas(fig, png);
